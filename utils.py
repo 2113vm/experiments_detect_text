@@ -19,8 +19,8 @@ class ContoursContainer(object):
         else:
             self._table[cx][cy].append(contour)
 
-    def get(self, (cx, cy)):
-        ret = self._table[cx][cy]
+    def get(self, c_xy: tuple):
+        ret = self._table[c_xy[0]][c_xy[1]]
         if ret is None:
             return []
         return ret
@@ -351,7 +351,7 @@ def cmp_rects(first, second):
                second[3]]
 
     res = 0
-    for idx in xrange(len(first)):
+    for idx in range(len(first)):
         res += fabs(first_[idx] - second_[idx])  # Let's try Manhattan as a metric for a while
     return res
 
@@ -384,7 +384,7 @@ def compare_centers(centers1, centers2):
         for idx2 in perm:
             channels = min(len(centers1[idx1]), len(centers2[idx2]))
             res = 0
-            for clr in xrange(channels):
+            for clr in range(channels):
                 res += fabs(centers1[idx1][clr] - centers2[idx2][clr])
             idx1 += 1
             distances.append(res)
@@ -395,7 +395,7 @@ def compare_colors(px1, px2):
     """Return normalized distance in colorspace between px1 and px2. Works faster than compare_centers"""
     channels = min(len(px1), len(px2))
     res = 0
-    for idx in xrange(channels):
+    for idx in range(channels):
         res += fabs(px1[idx] - px2[idx])
     return res / (channels * 255.)
 
@@ -421,7 +421,7 @@ def detect_border_kmeans(image, contour, max_thickness=3, max_cent_diff=0.05):
 
     old_centers = None
 
-    for thickness in xrange(max_thickness + 1):
+    for thickness in range(max_thickness + 1):
         bool_mask = mask.astype(np.bool)
         masked = roi[bool_mask]
         # cv2.imshow("mask", mask)
