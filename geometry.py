@@ -390,7 +390,7 @@ class Rectangle(tuple, Shape):
         return '{}({}, {}, {}, {})'.format(self.__class__.__name__, *self)
 
     def _convert_arg(self, param_name, value):
-        if isinstance(value, (str, unicode)):
+        if isinstance(value, (str, np.unicode)):
             ret = 0
             q = 1
             for component in re.split('([+-])', value):
